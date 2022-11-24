@@ -1,4 +1,3 @@
-from django.shortcuts import redirect
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -22,7 +21,7 @@ class To_do(db.Model):
 
 @app.route('/', methods=['GET','POST'])
 def hello_world():
-    if request.method=="POST":
+    if request.method=='POST':
         title = request.form['title']
         desc =  request.form['desc']
     
@@ -32,6 +31,7 @@ def hello_world():
     
     allTodo = To_do.query.all() 
     return render_template('index.html', allTodo=allTodo)
+
 
 @app.route('/update/<int:sno>', methods=['GET','POST'])
 def update(sno):
@@ -56,7 +56,5 @@ def delete(sno):
     db.session.commit()
     return redirect("/")
 
-
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=8000)
